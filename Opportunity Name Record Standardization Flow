@@ -1,0 +1,14 @@
+Hello,
+This is a simple flow I made for opportunity records standardization.
+This flow takes the user input for the Opportunity name field ( upon creation of an opportunity ) and automatically updates it to a standard.
+It can be modified for different business uses.
+I wanted all of the records inside the opportunity to be as such:
+Season/Year – Account Name – 6-digit random number.
+-	Sale season/year  –  used to track the year and season  this record was created.
+-	Name of account –  used to track the company/person this opportunity is for.
+-	Random number of 6 digits – ok so the 6 digits are not mandatory, it can be 3,4,5, or any number you would like ( the total number of characters must be under 120 )
+
+This is my first time trying to create this type of flow so it should be fun. ( I hope so )
+So how can we do this?
+Go to Setup  –  Search for “flows”  –  New Flow
+ 
