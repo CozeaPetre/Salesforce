@@ -11,4 +11,55 @@ Season/Year – Account Name – 6-digit random number.
 This is my first time trying to create this type of flow so it should be fun. ( I hope so )
 So how can we do this?
 Go to Setup  –  Search for “flows”  –  New Flow
- 
+Now we’ll use “Start from scratch” and select “Record triggered flow”
+We want to add the Object as Opportunity and be triggered when a record is created.
+Also, for better optimization, we need to set the flow for FFU ( Fast Field Updates ) – this means that the update of the name is done before the record is saved, therefore it saves us some resources.
+After pressing the add element button and select the “update records” element you should edit the “Set Field Values for the Opportunity Record”.
+On the left part of the flow builder you have the “Resources” part.
+For creating a new formula you select “New Resource” and select formula.
+First Formula is for : Season/Year
+( name of the formula is SaleSeasonYear )
+" IF(
+   MONTH(TODAY()) >= 3 && MONTH(TODAY()) <= 5,
+  "Spring",
+  IF(
+    MONTH(TODAY()) >= 6 && MONTH(TODAY()) <= 8,
+    "Summer",
+    IF(
+      MONTH(TODAY()) >= 9 && MONTH(TODAY()) <= 11,
+      "Fall",
+      "Winter"
+    )
+  )
+) & "/" & TEXT(YEAR(TODAY())) "
+
+This should give us the first part of the standard opportunity name, and it should be in the format Season/Year ( ex. Spring/2025 )
+For the Account name we simply use {!Record.AccountName}
+And now, for the most painfull part, we need a new formula for the random number
+( because I didn’t find a quick way to generate that random number, I used a formula which takes the month, hour and minute the opportunity record was created and assigns it as "000000" format )
+The formula looks like this: 
+( name of the formula is "RandNumber" )
+" LPAD(MID(TEXT(NOW()), 6, 2), 2, "0") & 
+  LPAD(MID(TEXT(NOW()), 12, 2), 2, "0") & 
+  LPAD(MID(TEXT(NOW()), 15, 2), 2, "0") "
+
+
+Now let's test it.
+So upon creating a new opportunity, for the name value I entered something random ( the letter “h” ) and this is the output.
+Spring/2025 - Burlington Textiles Corp of America - 040809
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
